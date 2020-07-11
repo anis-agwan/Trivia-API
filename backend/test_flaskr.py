@@ -30,7 +30,7 @@ class TriviaTestCase(unittest.TestCase):
         """Executed after reach test"""
         pass
 
-    def test_retrieve_all_questions(self):
+    def test_get_all_questions(self):
         res = self.client().get('/questions')
         data = json.loads(res.data)
 
@@ -48,7 +48,7 @@ class TriviaTestCase(unittest.TestCase):
         self.assertEqual(data['success'], False)
         self.assertEqual(data['message'], 'resource not found')
 
-    def test_retrieve_categories(self):
+    def test_get_categories(self):
         res = self.client().get('/categories')
         data = json.loads(res.data)
 
@@ -56,7 +56,7 @@ class TriviaTestCase(unittest.TestCase):
         self.assertEqual(data['success'], True)
         self.assertTrue(len(data['categories']))
 
-    def test_404_sent_for_non_existing_category(self):
+    def test_404_non_existing_category(self):
         res = self.client().get('/categories/1000')
         data = json.loads(res.data)
 
@@ -89,7 +89,7 @@ class TriviaTestCase(unittest.TestCase):
         self.assertEqual(data['success'], False)
         self.assertEqual(data['message'], 'unprocessable')
 
-    def test_create_question(self):
+    def test_add_question(self):
         new_question = {
             'question': 'question',
             'answer': 'answer',
@@ -105,7 +105,7 @@ class TriviaTestCase(unittest.TestCase):
         self.assertEqual(data["success"], True)
         self.assertEqual(total_questions_after, total_questions_before + 1)
 
-    def test_422_for_create_question(self):
+    def test_422_for_add_question(self):
         new_question = {
             'question': 'question',
             'answer': 'answer',
@@ -118,7 +118,7 @@ class TriviaTestCase(unittest.TestCase):
         self.assertEqual(data["success"], False)
         self.assertEqual(data["message"], "unprocessable")
 
-    def test_search_query_questions(self):
+    def test_search_questions(self):
         new_search = {'searchTerm': 'abc'}
         res = self.client().post('/questions/search', json=new_search)
         data = json.loads(res.data)
@@ -128,7 +128,7 @@ class TriviaTestCase(unittest.TestCase):
         self.assertIsNotNone(data['questions'])
         self.assertIsNotNone(data['total_questions'])
 
-    def test_404_for_search_query_question(self):
+    def test_404_for_search_question(self):
         new_search = {
             'searchTerm': '',
         }
@@ -139,7 +139,7 @@ class TriviaTestCase(unittest.TestCase):
         self.assertEqual(data["success"], False)
         self.assertEqual(data["message"], "resource not found")
 
-    def test_retrieve_questions_by_category(self):
+    def test_get_questions_by_category(self):
         res = self.client().get('/categories/1/questions')
         data = json.loads(res.data)
 
@@ -149,7 +149,7 @@ class TriviaTestCase(unittest.TestCase):
         self.assertTrue(data['total_questions'])
         self.assertTrue(data['current_category'])
 
-    def test_404_to_retrieve_questions_per_category(self):
+    def test_404_to_get_questions_per_category(self):
         res = self.client().get('/categories/abc/questions')
         data = json.loads(res.data)
 
