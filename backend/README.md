@@ -70,6 +70,15 @@ One note before you delve into your tasks: for each endpoint you are expected to
 
 ### API DOCUMENTATION
 
+Test API `\`
+Responses with a normal JSON message
+```
+{
+    'success': True,
+    'Hello': 'Friend'
+    }
+```
+
 GET `\categories`
 Fetches a dictionary from the available categories for the quiz
 
@@ -91,7 +100,7 @@ Fetches a dictionary from the available categories for the quiz
 
 ```
 
-GET `\questions?page=<page_number>`
+GET `\questions`
 Fetches a paginated dictionary with number of categories per page to get a dictionary of questions for available categories
 
 - _Request parameters (optional):_ page:int
@@ -106,7 +115,7 @@ Fetches a paginated dictionary with number of categories per page to get a dicti
         "5": "Entertainment",
         "6": "Sports"
     },
-    "current_category": null,
+    "current-categories": [1],
     "questions": [
         {
         "answer": "Maya Angelou",
@@ -136,10 +145,82 @@ Delete an existing question from list of available question
 
 ```
 {
-    "deleted" : "13",
-    "success" : True
+  "deleted": 10,
+  "questions": [
+    {
+      "answer": "Maya Angelou",
+      "category": 4,
+      "difficulty": 2,
+      "id": 5,
+      "question": "Whose autobiography is entitled 'I Know Why the Caged Bird Sings'?"
+    },
+    {
+      "answer": "Edward Scissorhands",
+      "category": 5,
+      "difficulty": 3,
+      "id": 6,
+      "question": "What was the title of the 1990 fantasy directed by Tim Burton about a young man with multi-bladed appendages?"
+    },
+    {
+      "answer": "Muhammad Ali",
+      "category": 4,
+      "difficulty": 1,
+      "id": 9,
+      "question": "What boxer's original name is Cassius Clay?"
+    },
+    {
+      "answer": "Uruguay",
+      "category": 6,
+      "difficulty": 4,
+      "id": 11,
+      "question": "Which country won the first ever soccer World Cup in 1930?"
+    },
+    {
+      "answer": "George Washington Carver",
+      "category": 4,
+      "difficulty": 2,
+      "id": 12,
+      "question": "Who invented Peanut Butter?"
+    },
+    {
+      "answer": "Agra",
+      "category": 3,
+      "difficulty": 2,
+      "id": 15,
+      "question": "The Taj Mahal is located in which Indian city?"
+    },
+    {
+      "answer": "Escher",
+      "category": 2,
+      "difficulty": 1,
+      "id": 16,
+      "question": "Which Dutch graphic artist–initials M C was a creator of optical illusions?"
+    },
+    {
+      "answer": "Mona Lisa",
+      "category": 2,
+      "difficulty": 3,
+      "id": 17,
+      "question": "La Giaconda is better known as what?"
+    },
+    {
+      "answer": "The Liver",
+      "category": 1,
+      "difficulty": 4,
+      "id": 20,
+      "question": "What is the heaviest organ in the human body?"
+    },
+    {
+      "answer": "Alexander Fleming",
+      "category": 1,
+      "difficulty": 3,
+      "id": 21,
+      "question": "Who discovered penicillin?"
+    }
+  ],
+  "success": true,
+  "total_questions": 13
 }
-
 ```
 
 POST `/questions`
@@ -150,8 +231,9 @@ Adds a new question to list of available question
 
 ```
 {
-    "success" : True,
-    "new_question" : 19
+    "success": True,
+    "new_question": new_question.id,
+    'message': 'Question successfully added'
 }
 ```
 
@@ -163,7 +245,6 @@ Fetches among a list of questions where substring matches the search(case insens
 
 ```
 {
-    "current_category" : Null,
     "questions" : [
         {
             "answer" : "George Washington Carver",

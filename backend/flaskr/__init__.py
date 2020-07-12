@@ -3,7 +3,6 @@ from flask import Flask, request, abort, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 import random
-
 from models import setup_db, Question, Category
 
 QUESTIONS_PER_PAGE = 10
@@ -123,7 +122,7 @@ def create_app(test_config=None):
               "questions": getQuestions
           })
       except:
-          abort(422)
+          abort(404)
 
   '''
   @TODO: 
@@ -178,7 +177,7 @@ def create_app(test_config=None):
       return jsonify({
           "success": True,
           "questions": questions,
-          "total_question": len(search_results)
+          "total_questions": len(search_results)
       })
     except:
         abort(404)
@@ -253,7 +252,7 @@ def create_app(test_config=None):
     return jsonify({
         'success': False,
         'error': 404,
-        'message': 'Resource not found'
+        'message': 'resource not found'
     }), 404
 
   @app.errorhandler(422)
